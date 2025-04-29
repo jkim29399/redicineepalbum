@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>빨간약 EP 앨범 'ROOM 405' 구매 신청서</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap');
@@ -20,10 +21,10 @@
       font-family: 'Quicksand', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      padding: 40px 0;
+      padding: 20px 0;
     }
     .container {
-      width: 95%; max-width: 600px;
+      width: 100%; max-width: 600px;
       margin: 0 auto;
       background: var(--card-bg);
       border-radius: var(--border-radius);
@@ -38,6 +39,7 @@
       color: var(--primary-color);
       margin-bottom: 16px;
       line-height: 1.2;
+      word-break: keep-all;
     }
     header p { font-size: 1rem; color: #555555; margin-bottom: 12px; }
     header ol {
@@ -78,12 +80,15 @@
     }
     .buttons-container {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       gap: 12px;
       margin-top: 24px;
     }
     .button-proceed,
     .button-submit-analyze {
+      flex: 1 1 auto;
+      min-width: 120px;
       padding: 12px 28px;
       font-size: 1rem;
       font-weight: 600;
@@ -121,7 +126,6 @@
       </ol>
       <p>아래 정보를 입력하신 후 <em>다음</em>을 눌러주세요.</p>
     </header>
-
     <!-- Page 1 -->
     <form id="page1">
       <div class="form-row">
@@ -148,7 +152,6 @@
         <button type="button" id="next-btn" class="button-proceed">다음</button>
       </div>
     </form>
-
     <!-- Page 2 -->
     <form id="page2" style="display:none; flex-direction: column;">
       <p style="font-size:0.9rem; color:#555555; margin-bottom:16px; text-align:center;">
@@ -173,16 +176,13 @@
       </div>
     </form>
   </div>
-
   <!-- EmailJS SDK -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
   <script defer>
     document.addEventListener('DOMContentLoaded', function() {
       emailjs.init('sngh_2PgQijP7DSmv');
-
       const page1 = document.getElementById('page1');
       const page2 = document.getElementById('page2');
-
       document.getElementById('next-btn').addEventListener('click', () => {
         const required = ['name', 'email', 'phone', 'address'];
         for (let id of required) {
@@ -194,12 +194,10 @@
         page1.style.display = 'none';
         page2.style.display = 'flex';
       });
-
       document.getElementById('back-btn').addEventListener('click', () => {
         page2.style.display = 'none';
         page1.style.display = 'flex';
       });
-
       document.getElementById('submit-btn').addEventListener('click', () => {
         const templateParams = {
           user_name:    document.getElementById('name').value,
@@ -211,7 +209,6 @@
           user_favorite:document.getElementById('favorite').value,
           user_message: document.getElementById('message').value
         };
-
         emailjs.send('service_47r2h5k', 'template_guw6e7h', templateParams)
           .then(() => alert('성공적으로 전송되었습니다!'))
           .catch(error => alert('전송에 실패했습니다: ' + JSON.stringify(error)));
@@ -220,3 +217,4 @@
   </script>
 </body>
 </html>
+
