@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>빨간약 EP 앨범 'ROOM 405' 구매 신청서</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap');
+    :root {
+      --primary-color: #4A90E2;
+      --secondary-color: #50E3C2;
+      --bg-color: #F7FAFC;
+      --card-bg: #FFFFFF;
+      --text-color: #333333;
+      --border-radius: 12px;
+      --transition: 0.3s;
+      --shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      padding: 40px 0;
+    }
+    .container {
+      width: 95%; max-width: 600px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      animation: fadeIn var(--transition) ease;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: none; } }
+    header { text-align: center; margin-bottom: 24px; }
+    header h1 {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    header p { font-size: 1rem; color: #555555; margin-bottom: 12px; }
+    header ol {
+      margin: 12px auto;
+      padding-left: 1.2em;
+      color: #555555;
+      text-align: left;
+      max-width: 500px;
+      margin-bottom: 16px;
+    }
+    header ol li { margin-bottom: 6px; }
+    form { display: flex; flex-direction: column; }
+    .form-row { margin-bottom: 16px; }
+    label {
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: block;
+      font-size: 0.95rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"], textarea {
+      width: 100%; padding: 12px;
+      border: 1px solid #E2E8F0;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      font-family: 'Quicksand', sans-serif;
+    }
+    input::placeholder, textarea::placeholder {
+      font-style: italic;
+      color: #A0AEC0;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 4px var(--shadow);
+    }
+    .buttons-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .button-proceed,
+    .button-submit-analyze {
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: background-color var(--transition), transform var(--transition);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+    .button-proceed { background-color: var(--secondary-color); }
+    .button-submit-analyze { background-color: var(--primary-color); }
+    .button-proceed:hover { background-color: #3DCBAA; transform: translateY(-2px); }
+    .button-submit-analyze:hover { background-color: #357ABD; transform: translateY(-2px); }
+    .required-star {
+      color: red;
+      margin-left: 4px;
+      font-size: 1.1rem;
+      vertical-align: top;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>빨간약 EP 앨범 'ROOM 405' 구매 신청서</h1>
+      <p>아래 내용을 꼭 확인해 주세요.</p>
+      <ol>
+        <li>빨간약을 사랑해주시는 여러분 감사합니다!</li>
+        <li>입금 계좌는 우리은행 1002-336-123456 김지후 입니다.</li>
+        <li>입금(20,000원)이 완료된 후 신청서가 제출되어야 앨범 구매 신청이 완료됩니다.</li>
+        <li>입금자 명과 신청자 명을 동일하게 기입해주시기 바랍니다.</li>
+        <li>앨범은 5월 15일 일괄 배송됩니다.</li>
+        <li>앨범 총 수량은 200장으로, 조기 소진될 수 있습니다.</li>
+      </ol>
+      <p>아래 정보를 입력하신 후 <em>다음</em>을 눌러주세요.</p>
+    </header>
+
+    <!-- Page 1 -->
+    <form id="page1">
+      <div class="form-row">
+        <label for="name">이름<span class="required-star">*</span></label>
+        <input type="text" id="name" placeholder="홍길동" required>
+      </div>
+      <div class="form-row">
+        <label for="email">이메일<span class="required-star">*</span></label>
+        <input type="email" id="email" placeholder="example@gmail.com" required>
+      </div>
+      <div class="form-row">
+        <label for="phone">핸드폰 번호<span class="required-star">*</span></label>
+        <input type="tel" id="phone" placeholder="010-1234-5678" required>
+      </div>
+      <div class="form-row">
+        <label for="address">주소<span class="required-star">*</span></label>
+        <input type="text" id="address" placeholder="서울특별시 강남구 ..." required>
+      </div>
+      <div class="form-row">
+        <label for="delivery">배송 요청사항</label>
+        <input type="text" id="delivery" placeholder="예: 부재 시 경비실에 맡겨주세요">
+      </div>
+      <div class="buttons-container">
+        <button type="button" id="next-btn" class="button-proceed">다음</button>
+      </div>
+    </form>
+
+    <!-- Page 2 -->
+    <form id="page2" style="display:none; flex-direction: column;">
+      <p style="font-size:0.9rem; color:#555555; margin-bottom:16px; text-align:center;">
+        밑의 질문 사항은 선택 사항으로 답변하지 않으셔도 됩니다.<br>
+        여러분과 소통하고자 하는 빨간약의 작은 노력입니다 (♡)
+      </p>
+      <div class="form-row">
+        <label for="route">빨간약을 알게된 경로</label>
+        <input type="text" id="route" placeholder="예: SNS, 친구 추천">
+      </div>
+      <div class="form-row">
+        <label for="favorite">ROOM 405 앨범 수록곡 중 가장 좋아하는 곡</label>
+        <input type="text" id="favorite" placeholder="곡 이름">
+      </div>
+      <div class="form-row">
+        <label for="message">빨간약에게 하고 싶은 한마디 (열마디도 가능)</label>
+        <textarea id="message" rows="4" placeholder="여기에 적어주세요"></textarea>
+      </div>
+      <div class="buttons-container">
+        <button type="button" id="back-btn" class="button-proceed">뒤로</button>
+        <button type="button" id="submit-btn" class="button-submit-analyze">확인</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      emailjs.init('sngh_2PgQijP7DSmv');
+
+      const page1 = document.getElementById('page1');
+      const page2 = document.getElementById('page2');
+
+      document.getElementById('next-btn').addEventListener('click', () => {
+        const required = ['name', 'email', 'phone', 'address'];
+        for (let id of required) {
+          if (!document.getElementById(id).value.trim()) {
+            alert('필수 항목을 모두 입력해주세요.');
+            return;
+          }
+        }
+        page1.style.display = 'none';
+        page2.style.display = 'flex';
+      });
+
+      document.getElementById('back-btn').addEventListener('click', () => {
+        page2.style.display = 'none';
+        page1.style.display = 'flex';
+      });
+
+      document.getElementById('submit-btn').addEventListener('click', () => {
+        const templateParams = {
+          user_name:    document.getElementById('name').value,
+          user_email:   document.getElementById('email').value,
+          user_phone:   document.getElementById('phone').value,
+          user_address: document.getElementById('address').value,
+          user_delivery:document.getElementById('delivery').value,
+          user_route:   document.getElementById('route').value,
+          user_favorite:document.getElementById('favorite').value,
+          user_message: document.getElementById('message').value
+        };
+
+        emailjs.send('service_47r2h5k', 'template_guw6e7h', templateParams)
+          .then(() => alert('성공적으로 전송되었습니다!'))
+          .catch(error => alert('전송에 실패했습니다: ' + JSON.stringify(error)));
+      });
+    });
+  </script>
+</body>
+</html>
