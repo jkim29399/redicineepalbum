@@ -41,8 +41,8 @@
       line-height: 1.2;
     }
     header img {
-      width: 25%;
-      max-width: 200px;
+      width: 50%;
+      max-width: 400px;
       margin: 8px auto 16px;
       display: block;
       border-radius: var(--border-radius);
@@ -76,7 +76,9 @@
       font-size: 1rem;
       transition: border-color var(--transition), box-shadow var(--transition);
       font-family: 'Quicksand', sans-serif;
+      height: auto;
     }
+    select { height: 48px; }
     input::placeholder, textarea::placeholder {
       font-style: italic;
       color: #A0AEC0;
@@ -123,7 +125,6 @@
   <div class="container">
     <header>
       <h1>빨간약 EP 앨범 'ROOM 405' 구매 신청서</h1>
-      <!-- Album cover -->
       <img src="https://i.ibb.co/0pww6Mqw/Kakao-Talk-Photo-2025-05-19-09-27-34.png" alt="빨간약 EP 앨범 커버">
       <p>아래 내용을 꼭 확인해 주세요.</p>
       <ol>
@@ -173,6 +174,10 @@
       <div class="form-row">
         <label for="delivery">배송 요청사항</label>
         <input type="text" id="delivery" placeholder="예: 부재 시 경비실에 맡겨주세요">
+      </div>
+      <div class="form-row">
+        <label for="coupon">쿠폰 코드</label>
+        <input type="text" id="coupon">
       </div>
       <div class="buttons-container">
         <button type="button" id="next-btn" class="button-proceed">다음</button>
