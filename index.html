@@ -16,11 +16,12 @@
       --transition: 0.3s;
       --shadow: 0 6px 18px rgba(0,0,0,0.1);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
     body {
       font-family: 'Quicksand', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
+      margin: 0;
       padding: 20px 0;
     }
     .container {
@@ -70,23 +71,29 @@
     input[type="tel"],
     select,
     textarea {
-      width: 100%; padding: 12px;
+      width: 100%;
+      padding: 12px;
       border: 1px solid #E2E8F0;
       border-radius: var(--border-radius);
       font-size: 1rem;
       transition: border-color var(--transition), box-shadow var(--transition);
       font-family: 'Quicksand', sans-serif;
-      height: auto;
-    }
-    select { height: 48px; }
-    input::placeholder, textarea::placeholder {
-      font-style: italic;
-      color: #A0AEC0;
-    }
-    input:focus, textarea:focus, select:focus {
+      background-color: #fff;
       outline: none;
+    }
+    input::placeholder, textarea::placeholder { font-style: italic; color: #A0AEC0; }
+    input:focus, textarea:focus, select:focus {
       border-color: var(--primary-color);
       box-shadow: 0 0 4px var(--shadow);
+    }
+    select {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'><path fill='%23666' d='M0,2 L5,8 L10,2 Z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 10px;
     }
     .buttons-container {
       display: flex;
@@ -102,7 +109,7 @@
       padding: 12px 28px;
       font-size: 1rem;
       font-weight: 600;
-      color: #ffffff;
+      color: #fff;
       border: none;
       border-radius: var(--border-radius);
       cursor: pointer;
@@ -113,12 +120,7 @@
     .button-submit-analyze { background-color: var(--primary-color); }
     .button-proceed:hover { background-color: #3DCBAA; transform: translateY(-2px); }
     .button-submit-analyze:hover { background-color: #357ABD; transform: translateY(-2px); }
-    .required-star {
-      color: red;
-      margin-left: 4px;
-      font-size: 1.1rem;
-      vertical-align: top;
-    }
+    .required-star { color: red; margin-left: 4px; font-size: 1.1rem; vertical-align: top; }
   </style>
 </head>
 <body>
@@ -135,7 +137,7 @@
         <li>앨범은 5월 27일 부터 순차적으로 진행됩니다.</li>
         <li>앨범 총 수량은 200장으로, 조기 소진될 수 있습니다.</li>
       </ol>
-      <p>아래 정보를 입력하신 후 '다음'을 눌러주세요.</p>
+      <p>아래 정보를 입력하신 후 <em>다음</em>을 눌러주세요.</p>
     </header>
 
     <!-- Page 1 -->
