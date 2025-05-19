@@ -30,6 +30,8 @@
     .button-proceed:hover { background-color:#3DCBAA; transform:translateY(-2px); }
     .button-submit-analyze:hover { background-color:#357ABD; transform:translateY(-2px); }
     .required-star { color:red; margin-left:4px; font-size:1.1rem; vertical-align:top; }
+    #thanks { display:none; text-align:center; }
+    #thanks h2 { color:var(--primary-color); margin-bottom:16px; }
   </style>
 </head>
 <body>
@@ -48,6 +50,7 @@
       <img src="https://i.ibb.co/0pww6Mqw/Kakao-Talk-Photo-2025-05-19-09-27-34.png" alt="빨간약 EP 앨범 커버">
       <p>아래 정보를 입력하신 후 <em>다음</em>을 눌러주세요.</p>
     </header>
+
     <!-- Page 1 -->
     <form id="page1">
       <div class="form-row"><label for="name">이름<span class="required-star">*</span></label><input type="text" id="name" placeholder="홍길동" required></div>
@@ -55,13 +58,14 @@
       <div class="form-row"><label for="phone">핸드폰 번호<span class="required-star">*</span></label><input type="tel" id="phone" placeholder="010-1234-5678" required></div>
       <div class="form-row"><label for="address">주소<span class="required-star">*</span></label><input type="text" id="address" placeholder="서울특별시 강남구 ..." required></div>
       <div class="form-row"><label for="quantity">구매 수량 (최대 5)<span class="required-star">*</span></label><select id="quantity" required><option value="" selected>선택</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-      <div class="form-row"><label for="amount">구매금액</label><input type="text" id="amount" readonly placeholder="0원"></div>
+      <div class="form-row"><label for="amount">구매금액 (배송비: 3,000원 / 3장 이상 구매시 배송비 무료)</label><input type="text" id="amount" readonly placeholder="0원"></div>
       <div class="form-row"><label for="coupon">쿠폰 코드 (선택사항)</label><input type="text" id="coupon"></div>
       <div class="form-row"><label>입금 여부<span class="required-star">*</span></label><div style="display:flex; gap:12px;"><label><input type="radio" name="depositStatus" value="완료" required> 완료</label><label><input type="radio" name="depositStatus" value="미완료"> 미완료</label></div></div>
       <div class="form-row"><label for="depositName">입금자명<span class="required-star">*</span></label><input type="text" id="depositName" required></div>
       <div class="form-row"><label for="delivery">배송 요청사항</label><input type="text" id="delivery" placeholder="예: 부재 시 경비실에 맡겨주세요"></div>
       <div class="buttons-container"><button type="button" id="next-btn" class="button-proceed">다음</button></div>
     </form>
+
     <!-- Page 2 -->
     <form id="page2" style="display:none; flex-direction:column;">
       <p style="font-size:0.9rem; color:#555555; text-align:center; margin-bottom:16px;">밑의 질문 사항은 선택 사항으로 답변하지 않으셔도 됩니다.<br>여러분과 소통하고자 하는 빨간약의 작은 노력입니다 (♡)</p>
@@ -70,6 +74,13 @@
       <div class="form-row"><label for="message">빨간약에게 하고 싶은 한마디 (열마디도 가능)</label><textarea id="message" rows="4" placeholder="여기에 적어주세요"></textarea></div>
       <div class="buttons-container"><button type="button" id="back-btn" class="button-proceed">뒤로</button><button type="button" id="submit-btn" class="button-submit-analyze">확인</button></div>
     </form>
+
+    <!-- Thank You -->
+    <div id="thanks">
+      <h2>감사합니다!</h2>
+      <p>신청이 완료되었습니다.</p>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
     <script defer>
       document.addEventListener('DOMContentLoaded', function() {
@@ -77,12 +88,16 @@
         const headerEl = document.querySelector('header');
         const page1 = document.getElementById('page1');
         const page2 = document.getElementById('page2');
+        const thanks = document.getElementById('thanks');
         const qty = document.getElementById('quantity');
         const amount = document.getElementById('amount');
         qty.addEventListener('change', () => {
           const q = parseInt(qty.value) || 0;
           const fmt = n => n.toLocaleString()+'원';
-          amount.value = q? `${fmt(q*25000)} (쿠폰 지참시 ${fmt(q*20000)})` : '';
+          const ship = q > 0 && q < 3 ? 3000 : 0;
+          const total = q*25000 + ship;
+          const discount = q*20000 + ship;
+          amount.value = q ? `${fmt(total)} (쿠폰 지참시 ${fmt(discount)})` : '';
         });
         document.getElementById('next-btn').addEventListener('click', () => {
           const reqFields = ['name','email','phone','address','quantity','depositName'];
@@ -94,12 +109,10 @@
           const status = document.querySelector('input[name="depositStatus"]:checked');
           if (!status) { alert('입금 여부를 선택해주세요.'); return; }
           if (status.value === '미완료') { alert('입금이 완료되어야 구매 가능합니다.'); return; }
-          // coupon validation
           const coupon = document.getElementById('coupon').value.trim();
           if (coupon && coupon.toLowerCase() !== 'redicine') {
             alert('쿠폰코드가 일치하지 않습니다.'); return;
           }
-          // proceed
           headerEl.style.display = 'none';
           page1.style.display = 'none';
           page2.style.display = 'flex';
@@ -125,8 +138,11 @@
             user_message: document.getElementById('message').value
           };
           emailjs.send('service_47r2h5k','template_guw6e7h',params)
-            .then(()=>alert('성공적으로 전송되었습니다!'))
-            .catch(e=>alert('전송에 실패했습니다: '+JSON.stringify(e)));
+            .then(() => {
+              page2.style.display = 'none';
+              thanks.style.display = 'block';
+            })
+            .catch(e => alert('전송에 실패했습니다: ' + JSON.stringify(e)));
         });
       });
     </script>
