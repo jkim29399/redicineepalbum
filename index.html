@@ -41,13 +41,6 @@
       margin-bottom: 16px;
       line-height: 1.2;
     }
-    header img {
-      width: 50%;
-      max-width: 400px;
-      margin: 8px auto 16px;
-      display: block;
-      border-radius: var(--border-radius);
-    }
     header p { font-size: 1rem; color: #555555; margin-bottom: 12px; }
     header ol {
       margin: 12px auto;
@@ -58,6 +51,13 @@
       margin-bottom: 16px;
     }
     header ol li { margin-bottom: 6px; }
+    header img {
+      width: 60%;
+      max-width: 480px;
+      margin: 16px auto;
+      display: block;
+      border-radius: var(--border-radius);
+    }
     form { display: flex; flex-direction: column; }
     .form-row { margin-bottom: 16px; }
     label {
@@ -127,7 +127,6 @@
   <div class="container">
     <header>
       <h1>빨간약 EP 앨범 'ROOM 405' 구매 신청서</h1>
-      <img src="https://i.ibb.co/0pww6Mqw/Kakao-Talk-Photo-2025-05-19-09-27-34.png" alt="빨간약 EP 앨범 커버">
       <p>아래 내용을 꼭 확인해 주세요.</p>
       <ol>
         <li>빨간약을 사랑해주시는 여러분 감사합니다!</li>
@@ -137,6 +136,8 @@
         <li>앨범은 5월 27일 부터 순차적으로 진행됩니다.</li>
         <li>앨범 총 수량은 200장으로, 조기 소진될 수 있습니다.</li>
       </ol>
+      <!-- Moved cover image above the final prompt -->
+      <img src="https://i.ibb.co/0pww6Mqw/Kakao-Talk-Photo-2025-05-19-09-27-34.png" alt="빨간약 EP 앨범 커버">
       <p>아래 정보를 입력하신 후 <em>다음</em>을 눌러주세요.</p>
     </header>
 
@@ -159,7 +160,7 @@
         <input type="text" id="address" placeholder="서울특별시 강남구 ..." required>
       </div>
       <div class="form-row">
-        <label for="quantity">구매 수량<span class="required-star">*</span></label>
+        <label for="quantity">구매 수량 (최대 5)<span class="required-star">*</span></label>
         <select id="quantity" required>
           <option value="" selected>선택</option>
           <option value="1">1</option>
@@ -171,7 +172,7 @@
       </div>
       <div class="form-row">
         <label for="depositName">입금자명<span class="required-star">*</span></label>
-        <input type="text" id="depositName" placeholder="예: 김지영" required>
+        <input type="text" id="depositName" required>
       </div>
       <div class="form-row">
         <label for="delivery">배송 요청사항</label>
@@ -209,48 +210,49 @@
         <button type="button" id="submit-btn" class="button-submit-analyze">확인</button>
       </div>
     </form>
-  </div>
 
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
-  <script defer>
-    document.addEventListener('DOMContentLoaded', function() {
-      emailjs.init('sngh_2PgQijP7DSmv');
-      const page1 = document.getElementById('page1');
-      const page2 = document.getElementById('page2');
-      document.getElementById('next-btn').addEventListener('click', () => {
-        const required = ['name', 'email', 'phone', 'address', 'quantity', 'depositName'];
-        for (let id of required) {
-          if (!document.getElementById(id).value.trim()) {
-            alert('필수 항목을 모두 입력해주세요.');
-            return;
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js" defer></script>
+    <script defer>
+      document.addEventListener('DOMContentLoaded', function() {
+        emailjs.init('sngh_2PgQijP7DSmv');
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        document.getElementById('next-btn').addEventListener('click', () => {
+          const required = ['name', 'email', 'phone', 'address', 'quantity', 'depositName'];
+          for (let id of required) {
+            if (!document.getElementById(id).value.trim()) {
+              alert('필수 항목을 모두 입력해주세요.');
+              return;
+            }
           }
-        }
-        page1.style.display = 'none';
-        page2.style.display = 'flex';
+          page1.style.display = 'none';
+          page2.style.display = 'flex';
+        });
+        document.getElementById('back-btn').addEventListener('click', () => {
+          page2.style.display = 'none';
+          page1.style.display = 'flex';
+        });
+        document.getElementById('submit-btn').addEventListener('click', () => {
+          const templateParams = {
+            user_name:      document.getElementById('name').value,
+            user_email:     document.getElementById('email').value,
+            user_phone:     document.getElementById('phone').value,
+            user_address:   document.getElementById('address').value,
+            user_quantity:  document.getElementById('quantity').value,
+            user_depositName:document.getElementById('depositName').value,
+            user_delivery:  document.getElementById('delivery').value,
+            user_route:     document.getElementById('route').value,
+            user_favorite:  document.getElementById('favorite').value,
+            user_message:   document.getElementById('message').value
+          }; 
+          emailjs.send('service_47r2h5k', 'template_guw6e7h', templateParams)
+            .then(() => alert('성공적으로 전송되었습니다!'))
+            .catch(error => alert('전송에 실패했습니다: ' + JSON.stringify(error)));
+        });
       });
-      document.getElementById('back-btn').addEventListener('click', () => {
-        page2.style.display = 'none';
-        page1.style.display = 'flex';
-      });
-      document.getElementById('submit-btn').addEventListener('click', () => {
-        const templateParams = {
-          user_name:      document.getElementById('name').value,
-          user_email:     document.getElementById('email').value,
-          user_phone:     document.getElementById('phone').value,
-          user_address:   document.getElementById('address').value,
-          user_quantity:  document.getElementById('quantity').value,
-          user_depositName:document.getElementById('depositName').value,
-          user_delivery:  document.getElementById('delivery').value,
-          user_route:     document.getElementById('route').value,
-          user_favorite:  document.getElementById('favorite').value,
-          user_message:   document.getElementById('message').value
-        };
-        emailjs.send('service_47r2h5k', 'template_guw6e7h', templateParams)
-          .then(() => alert('성공적으로 전송되었습니다!'))
-          .catch(error => alert('전송에 실패했습니다: ' + JSON.stringify(error)));
-      });
-    });
-  </script>
+    </script>
+  </div>
 </body>
 </html>
+
