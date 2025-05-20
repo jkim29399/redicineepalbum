@@ -99,7 +99,7 @@
           const ship = q > 0 && q < 3 ? 3000 : 0;
           const total = q*25000 + ship;
           const discount = q*20000 + ship;
-          amount.value = q ? `${fmt(total)} (쿠폰 지참시 ${fmt(discount)})` : '';
+          amount.value = q ? `배송비 포함 총 ${fmt(total)} (쿠폰 지참시 ${fmt(discount)})` : '';
         });
         document.getElementById('next-btn').addEventListener('click', () => {
           const reqFields = ['name','email','phone','address','quantity','depositName'];
