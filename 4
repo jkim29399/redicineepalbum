@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>빨간약 공식 페이지</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap');
+    :root {
+      --primary-color: #4A90E2;
+      --secondary-color: #50E3C2;
+      --bg-color: #F7FAFC;
+      --card-bg: #FFFFFF;
+      --text-color: #333333;
+      --border-radius: 12px;
+      --transition: 0.3s;
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      width: 90%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), box-shadow var(--transition);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .card h2 {
+      margin: 16px 0 8px;
+      font-size: 1.25rem;
+      color: var(--primary-color);
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+    img.icon {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <a class="card" href="https://jkim29399.github.io/redicineepalbum/" target="_blank">
+      <h2>앨범 구매 신청서</h2>
+      <p>빨간약 EP 앨범 'ROOM 405' 구매 신청 페이지</p>
+    </a>
+    <a class="card" href="https://www.youtube.com/@redicine_official" target="_blank">
+      <img class="icon" src="https://img.icons8.com/ios-filled/50/4A90E2/youtube-play.png" alt="YouTube 채널">
+      <h2>YouTube</h2>
+      <p>빨간약 공식 유튜브 채널</p>
+    </a>
+    <a class="card" href="https://www.instagram.com/redicine_official/" target="_blank">
+      <img class="icon" src="https://img.icons8.com/ios-filled/50/4A90E2/instagram-new.png" alt="Instagram">
+      <h2>Instagram</h2>
+      <p>빨간약 공식 인스타그램</p>
+    </a>
+    <a class="card" href="https://www.facebook.com/palganyak" target="_blank">
+      <img class="icon" src="https://img.icons8.com/ios-filled/50/4A90E2/facebook-new.png" alt="Facebook">
+      <h2>Facebook</h2>
+      <p>빨간약 공식 페이스북 페이지</p>
+    </a>
+  </div>
+</body>
+</html>
